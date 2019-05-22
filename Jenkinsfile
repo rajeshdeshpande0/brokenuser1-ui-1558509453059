@@ -139,7 +139,7 @@ node{
     }
    
    stage('Dev - Build Application'){
-        buildApp("${APP_NAME}-dev", "${MS_NAME}")
+        buildApp("${APP_NAME}-dev-apps", "${MS_NAME}")
    }
 
  /*  stage('Dev - Deploy Application'){
@@ -147,11 +147,11 @@ node{
    }*/
    
    stage('Tagging Image for Testing'){
-        openshiftTag(namespace: '$APP_NAME-dev', srcStream: '$REPO_NAME', srcTag: 'latest', destStream: '$REPO_NAME', destTag: 'test')
+        openshiftTag(namespace: '$APP_NAME-dev-apps', srcStream: '$REPO_NAME', srcTag: 'latest', destStream: '$REPO_NAME', destTag: 'test-apps')
    }
    
    stage('Test - Deploy Application'){
-        testDeployment("${APP_NAME}-dev", "${APP_NAME}-test", "${REPO_NAME}")
+        testDeployment("${APP_NAME}-dev-apps", "${APP_NAME}-test-app", "${REPO_NAME}")
    }
 
    if(env.FUNCTIONAL_TESTING == 'True'){
